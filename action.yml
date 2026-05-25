@@ -1,0 +1,31 @@
+name: 'Auto Tags'
+description: 'Automatically create semver tags when a PR is merged to main'
+author: 'shmorish'
+
+branding:
+  icon: 'tag'
+  color: 'blue'
+
+inputs:
+  bump:
+    description: 'Version bump type: patch, minor, or major'
+    required: true
+    default: 'patch'
+  token:
+    description: 'GitHub token used to create the tag'
+    required: false
+    default: ${{ github.token }}
+  tag-prefix:
+    description: 'Prefix for the version tag (e.g. "v" produces v1.2.3)'
+    required: false
+    default: 'v'
+
+outputs:
+  new-tag:
+    description: 'The newly created tag (e.g. v1.2.4)'
+  previous-tag:
+    description: 'The tag before bumping (e.g. v1.2.3)'
+
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
